@@ -4,9 +4,7 @@
  
 * mention is : George Woodcock	George Woodcock	1.0	
 
-* mention is : Help:Reverting	Reverted]5]	0.1111111111111111	Reverted4	0.1111111111111111	Reverted3	0.1111111111111111
-
-* Reverted2	0.5555555555555556	Reverted1	0.1111111111111111	
+* mention is : Help:Reverting	Reverted]5]	0.1111111111111111	Reverted4	0.1111111111111111	Reverted3	0.1111111111111111 Reverted2	0.5555555555555556	Reverted1	0.1111111111111111	
 
 * mention is : individualist anarchism	individualist anarchism	1.0	
 
