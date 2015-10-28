@@ -12,7 +12,7 @@
 
 * mention is : Murray Bookchin	Murray Bookchin	1.0	
 
-*mention is : Emma Goldman	Emma Goldman	1.0	
+* mention is : Emma Goldman	Emma Goldman	1.0	
 
 * mention is : The Globe and Mail	The Globe and Mail	1.0
 
