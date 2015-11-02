@@ -1,16 +1,25 @@
 ## WikiVocabulary
 
+## file introdution
+* lib: related library
+* runJar: runnable jar files,you can input related command,and get result
+* src....: related code 
+## code inroduction
+* EMVocabulary.java :get entity-Memtions Map  
+         vocabulary：<entityName,Map<String,Mention(entity type)>>
+* MEVocabulary.java :get entity-Memtions Map  
+         vocabulary：<mentionName,Map<String,entity>>
 
- 
-* mention is : George Woodcock	George Woodcock	1.0	
+## runJar command:
 
-* mention is : Help:Reverting	Reverted]5]	0.1111111111111111	Reverted4	0.1111111111111111	Reverted3	0.1111111111111111 Reverted2	0.5555555555555556	Reverted1	0.1111111111111111	
+ * meVocabulary：if you want to get meVocabulary from text and have a related outpue  , set mention threshold value is 10,entities threshold value is 0.05
+         # java -XX:-UseGCOverheadLimit -Xmx30G -jar meVocabulary.jar inputFilename outputFilename 10 0.05
 
-* mention is : individualist anarchism	individualist anarchism	1.0	
+ * loadVocabulary:if you have a existed Vocabularyfile, and you want to get vocabulary:
+         # java -XX:-UseGCOverheadLimit -Xmx30G -jar meVocabulary.jar inputVocabualryFilename 
+ * emVocabulary：if you want to get emVocabulary from text and have a related outpue  , set mention threshold value is 
+         # java -XX:-UseGCOverheadLimit -Xmx30G -jar emVocabulary.jar inputFilename outputFilename 10 0.05
 
-* mention is : Murray Bookchin	Murray Bookchin	1.0	
-
-* mention is : Emma Goldman	Emma Goldman	1.0	
-
-* mention is : The Globe and Mail	The Globe and Mail	1.0
+ * loadVocabulary:if you have a existed Vocabularyfile, and you want to get vocabulary:
+         # java -XX:-UseGCOverheadLimit -Xmx30G -jar emVocabulary.jar inputVocabualryFilename 
 
