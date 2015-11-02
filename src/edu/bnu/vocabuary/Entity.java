@@ -34,7 +34,7 @@ public class Entity {
 	}
 	
 	public String toString(){
-		return entity+","+count+","+prob;
+		return entity+"\t"+count+"\t"+prob;
 	}
 
 	public void setProb(double prob) {

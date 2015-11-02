@@ -22,4 +22,5 @@ public class Mention {
 		this.mention = mention;
 		
 	}
+	
 }
