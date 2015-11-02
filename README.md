@@ -13,13 +13,17 @@
 ## runJar command:
 
  * meVocabulary：if you want to get meVocabulary from text and have a related outpue  , set mention threshold value is 10,entities threshold value is 0.05
+ * 
          # java -XX:-UseGCOverheadLimit -Xmx30G -jar meVocabulary.jar inputFilename outputFilename 10 0.05
 
  * loadVocabulary:if you have a existed Vocabularyfile, and you want to get vocabulary:
+ * 
          # java -XX:-UseGCOverheadLimit -Xmx30G -jar meVocabulary.jar inputVocabualryFilename 
  * emVocabulary：if you want to get emVocabulary from text and have a related outpue  , set mention threshold value is 
+ * 
          # java -XX:-UseGCOverheadLimit -Xmx30G -jar emVocabulary.jar inputFilename outputFilename 10 0.05
 
  * loadVocabulary:if you have a existed Vocabularyfile, and you want to get vocabulary:
+ * 
          # java -XX:-UseGCOverheadLimit -Xmx30G -jar emVocabulary.jar inputVocabualryFilename 
 
