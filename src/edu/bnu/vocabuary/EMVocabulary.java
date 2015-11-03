@@ -1,7 +1,9 @@
 package edu.bnu.vocabuary;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -171,6 +173,47 @@ public class EMVocabulary {
 		reader.closeReader();
 	}
 	
+
+	private  Map<String,ArrayList<Entity>> getorderEMList(){
+		Map<String,ArrayList<Entity>> orderEMs=new HashMap<String,ArrayList<Entity>>();
+		
+		for(String entity:EMvocabulary.keySet()){
+			
+			Map<String, Entity> mentions=EMvocabulary.get(entity);
+//			Map<String, ArrayList<Entity>> ordermMap=new HashMap<String, ArrayList<Entity>>();
+			ArrayList<Entity> Mlist=new ArrayList<Entity>();
+			for(String mn:mentions.keySet()){
+				
+				Mlist.add(mentions.get(mn));
+			}
+			Collections.sort(Mlist,Collections.reverseOrder());
+			orderEMs.put(entity,Mlist);
+			
+		}	
+		return orderEMs;
+		
+	}
+	
+	
+	public void outputVocMList(String outpath,int mentionnum){
+		Map<String,ArrayList<Entity>> orderlist=getorderEMList();
+		FileOutput writer=new FileOutput(outpath, false);
+		String newline=null;
+		for(String entityname:orderlist.keySet() ){
+			ArrayList<Entity> mentions=orderlist.get(entityname);
+			String mentionString=null;
+			for(int i=0;i<mentionnum;i++){
+				mentionString=mentionString+mentions.get(i).toString()+"\t\t";
+			}	
+			newline=entityname+"\t\t\t"+mentionString;
+			if(newline!=null){
+				writer.write(newline);
+			}
+		}
+		writer.closeWriter();
+		
+	}
+	
 	
 	public static void main(String[] args) {
 		System.out.println("two argument (input output):inuput ,textpath;output ,emVocabulary outpath ");
@@ -216,6 +259,7 @@ public class EMVocabulary {
 				}
 			}
 		}
+		
 		
 		
 	}

@@ -1,10 +1,15 @@
 package edu.bnu.vocabuary;
 
-public class Entity {
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+public class Entity implements Comparable<Entity> {
 	
 	private String entity;
 	private double prob;
-	private int count;
+	private Integer count;
 	
 	public Entity(String _name){
 		entity=_name;
@@ -29,12 +34,12 @@ public class Entity {
 		return prob;
 	}
 
-	public int getCount() {
+	public Integer getCount() {
 		return count;
 	}
 	
 	public String toString(){
-		return entity+"\t"+count+"\t"+prob;
+		return entity+","+count+","+prob;
 	}
 
 	public void setProb(double prob) {
@@ -66,6 +71,41 @@ public class Entity {
 	}
 	
 	
+	public int compareTo(Entity en) {
+	
+//        return this.getOrder().compareTo(arg0.getOrder());
+        return this.getCount().compareTo(en.getCount());
+    }
+	
+	public static void main(String[] args) {
+
+		ArrayList<Entity> list=new ArrayList<Entity>();
+		Entity e1=new Entity("n1");
+		e1.setCount(1);
+		e1.setProb(0.0);
+		
+		Entity e2=new Entity("n2");
+		e2.setCount(2);
+		e2.setProb(0.0);
+		
+		Entity e3=new Entity("n3");
+		e3.setCount(3);
+		e3.setProb(0.0);
+		
+		Entity e4=new Entity("n4");
+		e4.setCount(4);
+		e4.setProb(0.0);
+		
+		list.add(e4);
+		list.add(e1);
+		list.add(e3);
+		list.add(e2);
+		Collections.sort(list,Collections.reverseOrder());
+		for(Entity e:list){
+			System.out.println(e.getName()+"\t"+e.getCount());
+		}
+		
+	}
 	
 
 }
