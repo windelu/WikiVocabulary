@@ -179,6 +179,28 @@ public class MEVocabulary {
 	}
 	
 	/**
+	 * change the entity lowerCase to UpperCase
+	 * @param entity
+	 * @return
+	 */
+     private String  firstToUper(String entity){
+		
+		String reString=null;
+		if(entity.length()>0){
+			if(((entity.charAt(0)>='A')&&(entity.charAt(0))<='z')&&(!Character.isLowerCase(entity.charAt(0)))){
+				reString= entity;
+			}else {
+				
+				reString= (new StringBuilder()).append(Character.toUpperCase(entity.charAt(0))).append(entity.substring(1)).toString();
+			}
+		}
+		
+//    System.out.println(reString);
+		return reString;
+	}
+	
+	
+	/**
 	 * extract vocabulary from baidu
 	 * @param dumpPath
 	 * @param redirections
@@ -198,13 +220,14 @@ public class MEVocabulary {
 				mention=mention.replace("]]", "").trim();
 
 				if(mention.trim().length()>1){
+					entity=firstToUper(entity);
 				addMentionEntity(mention, entity);
 				}
 			}else {
 				String entity=line.replace("[[", "");
 				entity=entity.replace("]]", "");
-				if(entity.trim().length()>1){
-					addMentionEntity(entity, entity);
+				if(entity.trim().length()>1){					
+					addMentionEntity(entity, firstToUper(entity));
 						
 				}
 			}
@@ -450,10 +473,12 @@ public class MEVocabulary {
 //			demo.extractVocabularyFromVoca("F:/data/wikidata/entity100000.txt");
 //		    demo.deleteByNum(2, 0.05);
 //			demo.outputVocabulary("C:/Users/zcwang/Desktop/result.txt");
+//			System.out.println("finish");
 			
+			
+		
+			//test loadVocabulary
 			demo.loadVocabulary("C:/Users/zcwang/Desktop/result.txt");
-			
-			
 			Set<String> set=demo.MEvocabulary.keySet();
 			for(String s:set){
 				System.out.print("mention is : "+s+"\t");
@@ -466,6 +491,9 @@ public class MEVocabulary {
 			}
 			long endTime = System.currentTimeMillis();
 			System.out.println("time"+(endTime-startTime)+"ms");
+			
+			
+			
 		}
 		
 	}

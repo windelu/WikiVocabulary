@@ -70,6 +70,24 @@ public class EMVocabulary {
 //		 }
 //	}
 	
+	
+	private String  firstToUper(String entity){
+		
+		String reString=null;
+		if(entity.length()>0){
+			if(((entity.charAt(0)>='A')&&(entity.charAt(0))<='z')&&(!Character.isLowerCase(entity.charAt(0)))){
+				reString= entity;
+			}else {
+				
+				reString= (new StringBuilder()).append(Character.toUpperCase(entity.charAt(0))).append(entity.substring(1)).toString();
+			}
+		}
+		
+//    System.out.println(reString);
+		return reString;
+	}
+
+	
 	public void extractVocabularyFromVoca(String path){
 		FileInput reader=new FileInput(path);
 		String line=null;
@@ -80,14 +98,18 @@ public class EMVocabulary {
 				entity=entity.replace("[[", "").trim();
                
                 	String mention=StringUtils.substringAfter(line, "|");
-    				mention=mention.replace("]]", "").trim();				
-    				addEntityMention(entity, mention);
-            
-					
+    				mention=mention.replace("]]", "").trim();
+    				
+//    				System.out.println(entity);
+    				if (entity.length()>1) {
+    					entity=firstToUper(entity);
+    					addEntityMention(entity, mention);
+					}
 			}else {
 				String entity=line.replace("[[", "");
 				entity=entity.replace("]]", "");
-				if(entity.trim().length()>1){
+				if(entity.length()>1){
+					entity=firstToUper(entity).trim();
 					addEntityMention(entity, entity);		
 				}
 			}
@@ -209,7 +231,7 @@ public class EMVocabulary {
 			else {
 				size=mentionnum;
 			}
-			String mentionString=null;
+			String mentionString="";
 			for(int i=0;i<size;i++){
 				mentionString=mentionString+mentions.get(i).toString()+"\t\t";
 			}	
@@ -265,24 +287,20 @@ public class EMVocabulary {
 		
 		else {
 			EMVocabulary demo=new EMVocabulary();
-//			demo.extractVocabularyFromVoca("F:/data/wikidata/entity100000.txt");
-//		
-//	    	demo.outputVocabulary("C:/Users/zcwang/Desktop/emresult.txt");
-	    	
+			
+			//test two arguments
+			demo.extractVocabularyFromVoca("F:/data/wikidata/entity100000.txt");
+	    	demo.outputVocabulary("C:/Users/zcwang/Desktop/emresult.txt");
+    	
+	    	//test three arguments
 	    	demo.loadVocabulary("C:/Users/zcwang/Desktop/emresult.txt");
 	    	System.out.println(demo.EMvocabulary.size());
 	        demo.outputVocMList("C:/Users/zcwang/Desktop/emlistresult.txt", 2);   	
 	    	
-//	        demo.loadVocabulary("C:/Users/zcwang/Desktop/emlistresult.txt");
-//			Set<String> set=demo.EMvocabulary.keySet();
-//			for(String s:set){
-//			    System.out.println();
-//			    Map<String, Entity> mentions=demo.EMvocabulary.get(s);
-//			    for(String s2:mentions.keySet()){
-//			    	System.out.println(s+"\t\t"+mentions.get(s2).toString());
-//					
-//				}
-//			}
+
+         
+				
+			}
 	        
 	        
 		}
@@ -293,5 +311,5 @@ public class EMVocabulary {
 	
 	
 		
-}
+
 
