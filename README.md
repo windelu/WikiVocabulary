@@ -6,9 +6,9 @@
 * src....: related code 
 ## code inroduction
 * EMVocabulary.java :get entity-Memtions Map  
-         vocabulary：<entityName,Map<String,Mention(entity type)>>
+         vocabulary：\<entityName,Map\<String,Mention(entity type)>>
 * MEVocabulary.java :get entity-Memtions Map  
-         vocabulary：<mentionName,Map<String,entity>>
+         vocabulary：\<mentionName,Map\<String,entity>>
 
 ## runJar command:
 
