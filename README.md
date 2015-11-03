@@ -12,7 +12,8 @@
 
 ## runJar command:
 
- ### meVocabulary：
+   ### meVocabulary
+   
     #### extract  Mention  Entities Vocabulary
       *if you want to get meVocabulary from text and have a related outpue  , set mention threshold value is 10,entities  threshold value is 0.05
       
@@ -24,7 +25,7 @@
  
          #java -XX:-UseGCOverheadLimit -Xmx30G -jar meVocabulary.jar inputVocabualryFilename 
 
- ### emVocabulary：
+ ### emVocabulary
 
      #### extract Entity Mentions Vocabulary
      * if you want to get emVocabulary from text and have a related outpue  , set mention threshold value is 
