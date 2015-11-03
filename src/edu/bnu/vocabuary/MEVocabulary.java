@@ -219,15 +219,16 @@ public class MEVocabulary {
 				String mention=StringUtils.substringAfter(line, "|");
 				mention=mention.replace("]]", "").trim();
 
-				if(mention.trim().length()>1){
+				if ((!noUsedLink(mention.trim()))&&(mention.length()>1)) {
 					entity=firstToUper(entity);
 				addMentionEntity(mention, entity);
 				}
 			}else {
 				String entity=line.replace("[[", "");
 				entity=entity.replace("]]", "");
-				if(entity.trim().length()>1){					
-					addMentionEntity(entity, firstToUper(entity));
+				if((!noUsedLink(entity.trim()))&&(entity.length()>1)){		
+					//??不知道需不需要也在entity修改首字母。
+					addMentionEntity(firstToUper(entity), firstToUper(entity));
 						
 				}
 			}
@@ -304,6 +305,14 @@ public class MEVocabulary {
 //			e.printStackTrace();
 //		}
 //	}
+	
+	private boolean noUsedLink(String s){
+		boolean judge=false;
+		if((s.length()<=1)&&(s.contains(":")||s.contains("#"))){
+			judge=true;
+		}
+		return judge;
+	}
 	
 	private void addMentionEntity(String mention,String entity){
 		Map<String,Entity> entities=MEvocabulary.get(mention);
@@ -470,15 +479,15 @@ public class MEVocabulary {
 			
 			
 			MEVocabulary demo=new MEVocabulary();
-//			demo.extractVocabularyFromVoca("F:/data/wikidata/entity100000.txt");
-//		    demo.deleteByNum(2, 0.05);
-//			demo.outputVocabulary("C:/Users/zcwang/Desktop/result.txt");
-//			System.out.println("finish");
+			demo.extractVocabularyFromVoca("F:/data/wikidata/entity100000.txt");
+		    demo.deleteByNum(2, 0.05);
+			demo.outputVocabulary("C:/Users/zcwang/Desktop/result.txt");
+			System.out.println("finish");
 			
 			
 		
 			//test loadVocabulary
-			demo.loadVocabulary("C:/Users/zcwang/Desktop/result.txt");
+//			demo.loadVocabulary("C:/Users/zcwang/Desktop/result.txt");
 			Set<String> set=demo.MEvocabulary.keySet();
 			for(String s:set){
 				System.out.print("mention is : "+s+"\t");
