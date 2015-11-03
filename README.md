@@ -20,6 +20,7 @@
  * 
  
          #java -XX:-UseGCOverheadLimit -Xmx30G -jar meVocabulary.jar inputVocabualryFilename 
+
  * emVocabulary：if you want to get emVocabulary from text and have a related outpue  , set mention threshold value is 
  * 
  
@@ -29,4 +30,10 @@
  * 
  
          #java -XX:-UseGCOverheadLimit -Xmx30G -jar emVocabulary.jar inputVocabualryFilename 
+
+ * get part of the vocabulary:if you have a Threshold ,and set the first num of the mentions:
+ * 
+ 
+         #java -XX:-UseGCOverheadLimit -Xmx30G -jar emVocabulary.jar loadVocabularyPath outputNewPath mentionNum 
+
 
