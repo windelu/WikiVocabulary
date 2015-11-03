@@ -199,10 +199,18 @@ public class EMVocabulary {
 		Map<String,ArrayList<Entity>> orderlist=getorderEMList();
 		FileOutput writer=new FileOutput(outpath, false);
 		String newline=null;
+		
 		for(String entityname:orderlist.keySet() ){
 			ArrayList<Entity> mentions=orderlist.get(entityname);
+			int size=0;
+			if (mentions.size()<=mentionnum){
+				size=mentions.size();
+			}
+			else {
+				size=mentionnum;
+			}
 			String mentionString=null;
-			for(int i=0;i<mentionnum;i++){
+			for(int i=0;i<size;i++){
 				mentionString=mentionString+mentions.get(i).toString()+"\t\t";
 			}	
 			newline=entityname+"\t\t\t"+mentionString;
@@ -216,8 +224,9 @@ public class EMVocabulary {
 	
 	
 	public static void main(String[] args) {
-		System.out.println("two argument (input output):inuput ,textpath;output ,emVocabulary outpath ");
-		System.out.println("one argument(input):vocabulaty path,you will get a vocabulary that save in System");
+		System.out.println("three argument(input output num)");
+		System.out.println("two argument (input output):textpath  ,  emVocabulary outpath ");
+		System.out.println("one argument(input):loadVocabularyPath ");
 		if(args.length==2){
 			String input=args[0];
 			String output=args[1];
@@ -233,10 +242,25 @@ public class EMVocabulary {
 		else if(args.length==1){
 			String vocabularypath=args[0];
 			EMVocabulary demo=new EMVocabulary();
-			System.out.println("start to get vocabulary from the vocabularyText"+vocabularypath);
+			System.out.println("start to load vocabulary from the vocabularyText"+vocabularypath);
 			demo.loadVocabulary(vocabularypath);
-			System.out.println("finish !! ");
+			
 			System.out.println("the size is "+demo.EMvocabulary.size());
+			System.out.println("finish !! ");
+		}
+		else if (args.length==3) {
+			String vocText=args[0];
+			String saveNewVoc=args[1];
+			String mentionnum=args[2];
+			EMVocabulary demo=new EMVocabulary();
+			System.out.println("RawVocabulary path is : "+vocText);
+			System.out.println("new Vocabulary path is : "+saveNewVoc);
+			System.out.println("your mention num is : "+mentionnum);
+			demo.loadVocabulary(vocText);
+	    	System.out.println(demo.EMvocabulary.size());
+	        demo.outputVocMList(saveNewVoc, Integer.parseInt(mentionnum)); 
+			System.out.println("finish");
+			
 		}
 		
 		else {
@@ -247,17 +271,20 @@ public class EMVocabulary {
 	    	
 	    	demo.loadVocabulary("C:/Users/zcwang/Desktop/emresult.txt");
 	    	System.out.println(demo.EMvocabulary.size());
+	        demo.outputVocMList("C:/Users/zcwang/Desktop/emlistresult.txt", 2);   	
 	    	
-	    	
-			Set<String> set=demo.EMvocabulary.keySet();
-			for(String s:set){
-			    System.out.println();
-			    Map<String, Entity> mentions=demo.EMvocabulary.get(s);
-			    for(String s2:mentions.keySet()){
-			    	System.out.println(s+"\t\t"+mentions.get(s2).toString());
-					
-				}
-			}
+//	        demo.loadVocabulary("C:/Users/zcwang/Desktop/emlistresult.txt");
+//			Set<String> set=demo.EMvocabulary.keySet();
+//			for(String s:set){
+//			    System.out.println();
+//			    Map<String, Entity> mentions=demo.EMvocabulary.get(s);
+//			    for(String s2:mentions.keySet()){
+//			    	System.out.println(s+"\t\t"+mentions.get(s2).toString());
+//					
+//				}
+//			}
+	        
+	        
 		}
 		
 		

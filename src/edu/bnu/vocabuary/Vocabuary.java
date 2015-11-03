@@ -447,9 +447,10 @@ public class Vocabuary {
 			
 			
 			Vocabuary demo=new Vocabuary();
-//			demo.extractVocabularyFromVoca("F:/data/wikidata/entity100000.txt");
-//		    demo.deleteByNum(2, 0.05);
-//			demo.outputVocabulary("C:/Users/zcwang/Desktop/result.txt");
+			demo.extractVocabularyFromVoca("F:/data/wikidata/entity100000.txt");
+		    demo.deleteByNum(2, 0.05);
+			demo.outputVocabulary("C:/Users/zcwang/Desktop/result.txt");			
+			
 			
 			demo.loadVocabulary("C:/Users/zcwang/Desktop/result.txt");
 			
