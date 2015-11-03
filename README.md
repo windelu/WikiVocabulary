@@ -4,6 +4,7 @@
 * lib: related library
 * runJar: runnable jar files,you can input related command,and get result
 * src....: related code 
+
 ## code inroduction
 * EMVocabulary.java :get entity-Memtions Map  
          vocabulary：\<entityName,Map\<String,Mention(entity type)>>
@@ -15,10 +16,10 @@
 ### meVocabulary
    
 * extract  Mention  Entities Vocabulary
-      *if you want to get meVocabulary from text and have a related outpue  , set mention threshold value is 10,entities  threshold value is 0.05
+   **if you want to get meVocabulary from text and have a related outpue  , set mention threshold value is 10,entities  threshold value is 0.05
       
          #java -XX:-UseGCOverheadLimit -Xmx30G -jar meVocabulary.jar inputFilename outputFilename 10 0.05
-* the outputFile : mention    \\t\\t\\t  entity1.name\\tentity1.count\\tentity1.pro  (\\t\\t)    entity2.name\\tentity2.count\\tentity2.pro
+  ** the outputFile : mention    \\t\\t\\t  entity1.name\\tentity1.count\\tentity1.pro  (\\t\\t)    entity2.name\\tentity2.count\\tentity2.pro
 * loadVocabulary:if you have a existed Vocabularyfile, and you want to get vocabulary:
  * 
  
@@ -26,7 +27,7 @@
 
 ### emVocabulary
 * extract Entity Mentions Vocabulary
-* if you want to get emVocabulary from text and have a related outpue  , set mention threshold value is 
+** if you want to get emVocabulary from text and have a related outpue  , set mention threshold value is 
 * 
  
          #java -XX:-UseGCOverheadLimit -Xmx30G -jar emVocabulary.jar inputFilename outputFilename 
