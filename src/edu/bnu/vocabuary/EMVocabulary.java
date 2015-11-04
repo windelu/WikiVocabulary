@@ -101,14 +101,14 @@ public class EMVocabulary {
     				mention=mention.replace("]]", "").trim();
     				
 //    				System.out.println(entity);
-    				if ((!noUsedLink(entity.trim()))&&(entity.length()>1)) {
+    				if ((UsedLink(entity.trim()))&&(entity.length()>1)) {
     					entity=firstToUper(entity);
     					addEntityMention(entity, mention);
 					}
 			}else {
 				String entity=line.replace("[[", "");
 				entity=entity.replace("]]", "");
-				if ((!noUsedLink(entity.trim()))&&(entity.trim().length()>1)) {
+				if ((UsedLink(entity.trim()))&&(entity.trim().length()>1)) {
 					entity=firstToUper(entity.trim());
 					addEntityMention(entity, entity);		
 				}
@@ -125,10 +125,10 @@ public class EMVocabulary {
 //		System.out.println("Vocabulary update");
 	}	
 	
-	private boolean noUsedLink(String s){
-		boolean judge=false;
-		if(s.contains(":")||s.contains("#")){
-			judge=true;
+	private boolean UsedLink(String s){
+		boolean judge=true;
+		if(s.contains("#")&&(s.trim().length()==1)){
+			judge=false;
 		}
 		return judge;
 	}
@@ -296,13 +296,13 @@ public class EMVocabulary {
 			EMVocabulary demo=new EMVocabulary();
 			
 			//test two arguments
-//			demo.extractVocabularyFromVoca("F:/data/wikidata/entity100000.txt");
-//	    	demo.outputVocabulary("C:/Users/zcwang/Desktop/emresult.txt");
+			demo.extractVocabularyFromVoca("F:/data/wikidata/entities1000000.txt");
+	    	demo.outputVocabulary("C:/Users/zcwang/Desktop/emresult.txt");
     	  System.out.println(demo.EMvocabulary.containsKey("D"));
 	    	//test three arguments
-	    	demo.loadVocabulary("C:/Users/zcwang/Desktop/emresult.txt");
+//	    	demo.loadVocabulary("C:/Users/zcwang/Desktop/emresult.txt");
 	    	System.out.println(demo.EMvocabulary.size());
-	        demo.outputVocMList("C:/Users/zcwang/Desktop/emlistresult.txt", 2);   	
+//	        demo.outputVocMList("C:/Users/zcwang/Desktop/emlistresult.txt", 2);   	
 	    	
 
          

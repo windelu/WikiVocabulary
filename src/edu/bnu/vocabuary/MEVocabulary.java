@@ -219,14 +219,14 @@ public class MEVocabulary {
 				String mention=StringUtils.substringAfter(line, "|");
 				mention=mention.replace("]]", "").trim();
 
-				if ((!noUsedLink(mention.trim()))&&(mention.length()>1)) {
+				if ((UsedLink(mention.trim()))&&(mention.length()>1)) {				
 					entity=firstToUper(entity);
 				addMentionEntity(mention, entity);
 				}
 			}else {
 				String entity=line.replace("[[", "");
 				entity=entity.replace("]]", "");
-				if((!noUsedLink(entity.trim()))&&(entity.length()>1)){		
+				if((UsedLink(entity.trim()))&&(entity.length()>1)){		
 					//??不知道需不需要也在entity修改首字母。
 					addMentionEntity(firstToUper(entity), firstToUper(entity));
 						
@@ -242,74 +242,11 @@ public class MEVocabulary {
 		updateProb();
 		System.out.println("Vocabulary update");
 	}	
-//	
-//	public void extractVocabularyFromBaidu(String dumpPath,Map<String,Integer> articleIdMap){
-//		
-//	}
-//	
-//	public void extractVocabularyFromWiki(String dumpPath,Map<String,String> redirections){
-//		List<String> enwikiFileNames = FileInput.getFileNames(dumpPath);
-//		for(String f:enwikiFileNames){
-//			this.extractVocabularyFromSingleWikiFile(f,redirections);
-//		}
-//	}
-//
-//	public void extractVocabularyFromSingleWikiFile(String dumpPath,final Map<String,String> redirections){
-//		WikiXMLParser parser=WikiXMLParserFactory.getSAXParser(dumpPath);
-//		try {
-//			parser.setPageCallback(new PageCallbackHandler() {
-//				@Override
-//				public void process(WikiPage page) {
-//					Vector<String> links = page.getLinks();
-//					
-//					String title = page.getTitle().replaceAll("\n", "").trim();
-//					if (validArticleTitle(title)){
-//						links.add("[["+title+"]]");
-//					}
-//										
-//					
-//					if (links != null) {
-//						for (int i = 0; i < links.size(); i++) {
-//							String outlink = links.get(i);
-//							if(outlink.equals(""))continue;							
-//							String entity;
-//							String mention;
-//							if(outlink.contains("|")){
-//								entity=StringUtils.substringBefore(outlink, "|");
-//								entity=StringUtils.substringAfter(entity, "[[");
-//								entity=cleanLinks(entity);
-//								mention=StringUtils.substringAfter(outlink, "|");
-//								mention=StringUtils.substringBefore(mention, "]]");
-//							}else{
-//								entity=StringUtils.substringAfter(outlink, "[[");
-//								entity=StringUtils.substringBefore(entity, "]]");
-//								mention=entity;
-//							}
-//							
-//							//entity = entity.replaceAll(" ", "_");
-//							//replace redirections
-//							if(redirections.get(entity)!=null){
-//								String entity1=redirections.get(entity);
-//								addMentionEntity(mention,entity1);
-//								addMentionEntity(entity,entity1);
-//							}else{
-//								addMentionEntity(mention,entity);
-//							}
-//							
-//						}
-//					}
-//				}
-//			});
-//			parser.parse();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-	
-	private boolean noUsedLink(String s){
-		boolean judge=false;
-		if((s.length()<=1)&&(s.contains(":")||s.contains("#"))){
-			judge=true;
+
+	private boolean UsedLink(String s){
+		boolean judge=true;
+		if(s.contains("#")&&s.trim().length()==2){
+			judge=false;
 		}
 		return judge;
 	}
