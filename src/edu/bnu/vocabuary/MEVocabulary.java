@@ -394,36 +394,50 @@ public class MEVocabulary {
 	   Set<String> set=MEvocabulary.keySet();
 	   for(String m:set){
 		   if (mentionCount.get(m)<mentionnum){
-//		{   System.out.println(m+"  "+mentionCount.get(m));
-//			 System.out.println(vocabulary.get(m).toString()+"is the delete mention");
 
 			mentionDelete.put(m, MEvocabulary.get(m));
 			mentiondeleteCout.put(m, mentionCount.get(m));
 		}else {
-//			System.out.println(m+"   "+mentionCount.get(m));
-			Map<String, Entity> entityDelete=new HashMap<String, Entity>();
-			Map<String, Entity> entities=MEvocabulary.get(m);			
-			Set<String> set2=entities.keySet();
-			for(String e:set2 ){
-			 if((entities.get(e).getProb()<entityPro)&&(!(entities.get(e).getName().equals(m))))
-				 entityDelete.put(e, entities.get(e));
-//			 System.out.println(entities.get(e).toString());
-			}
-			Set<String>s2=entityDelete.keySet();
-			for(String ss:s2){
-				entities.remove(ss);
-				int newCount=mentionCount.get(m)-1;
-				mentionCount.put(m, newCount);
-			}
 
+			Map<String, Entity> entityDelete=new HashMap<String, Entity>();
+			Map<String, Entity> entities=MEvocabulary.get(m);
+			if(entities!=null){
+				Set<String> set2=entities.keySet();
+				
+				for(String e:set2 ){
+					Entity en=entities.get(e);	
+					if((en!=null)){
+						if((en.getName()!=null)&&(en.getProb()<entityPro)&&(!(en.getName().trim().equals(m)))){
+							entityDelete.put(e, en);
+						}
+						
+					
+					}
+						 
+				}
+				
+				if(entityDelete!=null){
+					Set<String>s2=entityDelete.keySet();
+					for(String ss:s2){
+						entities.remove(ss);
+						int newCount=mentionCount.get(m)-1;
+						mentionCount.put(m, newCount);
+					}
+		
+				}
+			}
+			
+			
 		}
 	   }
-
-	   Set<String>s1=mentiondeleteCout.keySet();
-	   for(String s:s1){
-		   MEvocabulary.remove(s);
-		 mentionCount.remove(s);
-	   }
+      if (mentiondeleteCout!=null) {
+    	  Set<String>s1=mentiondeleteCout.keySet();
+   	   for(String s:s1){
+   		 MEvocabulary.remove(s);
+   		 mentionCount.remove(s);
+   	   }
+	}
+	   
      System.out.println("delete some vocabulary");
    }
 	/**
@@ -479,9 +493,11 @@ public class MEVocabulary {
 			
 			
 			MEVocabulary demo=new MEVocabulary();
-			demo.extractVocabularyFromVoca("F:/data/wikidata/entity100000.txt");
-		    demo.deleteByNum(2, 0.05);
+			demo.extractVocabularyFromVoca("F:/data/wikidata/entities1000000.txt");
+			System.out.println(demo.mentionCount.size());
+		    demo.deleteByNum(3, 0.30);
 			demo.outputVocabulary("C:/Users/zcwang/Desktop/result.txt");
+			System.out.println(demo.mentionCount.size());
 			System.out.println("finish");
 			
 			
@@ -490,11 +506,11 @@ public class MEVocabulary {
 //			demo.loadVocabulary("C:/Users/zcwang/Desktop/result.txt");
 			Set<String> set=demo.MEvocabulary.keySet();
 			for(String s:set){
-				System.out.print("mention is : "+s+"\t");
+				System.out.print("mention is : "+s+"\t\t\t");
 				Map<String,Entity> entities=demo.MEvocabulary.get(s);
 				Set<String> set2=entities.keySet();
 				for(String e:set2){
-					System.out.print(entities.get(e).getName()+"\t"+entities.get(e).getProb()+"\t");
+					System.out.print(entities.get(e).toString());
 				}
 				System.out.println();
 			}
