@@ -21,7 +21,8 @@
          #java -XX:-UseGCOverheadLimit -Xmx30G -jar meVocabulary.jar inputFilename outputFilename 10 0.05
   ** the outputFile : mention    \\t\\t\\t  entity1.name\\tentity1.count\\tentity1.pro  (\\t\\t)    entity2.name\\tentity2.count\\tentity2.pro
 * loadVocabulary:if you have a existed Vocabularyfile, and you want to get vocabulary:
- * 
+* 
+
  
          #java -XX:-UseGCOverheadLimit -Xmx30G -jar meVocabulary.jar inputVocabualryFilename 
 
