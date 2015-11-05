@@ -306,7 +306,7 @@ public class EMVocabulary {
 			demo.extractVocabularyFromVoca("F:/data/wikidata/entities1000000.txt");
 
 	    	demo.outputVocabulary("C:/Users/zcwang/Desktop/emresult.txt");
-    	  System.out.println(demo.EMvocabulary.containsKey("D"));
+    	    System.out.println(demo.EMvocabulary.containsKey("D"));
 	    	//test three arguments
 	    	demo.loadVocabulary("C:/Users/zcwang/Desktop/emresult.txt");
 	    	System.out.println(demo.EMvocabulary.size());
