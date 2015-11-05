@@ -16,7 +16,14 @@ import FileIO.FileOutput;
 /**
  * 
  * @author dlwen
- * 
+ * 获得entity-->mentions
+ *
+ *从文本中抽取：extractvocabulary(path)
+ *输出到文本：outputVocabulary（outpath）  entity \t\t\t mention1 \t\t mention2....
+ *
+ *从文本中获取 loadVocabulary(path)
+ *
+ *获取前n个：getOderMList（outpath num）
  *
  */
 

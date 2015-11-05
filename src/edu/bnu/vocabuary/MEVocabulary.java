@@ -17,7 +17,20 @@ import edu.jhu.nlp.wikipedia.PageCallbackHandler;
 import edu.jhu.nlp.wikipedia.WikiPage;
 import edu.jhu.nlp.wikipedia.WikiXMLParser;
 import edu.jhu.nlp.wikipedia.WikiXMLParserFactory;
-
+/**
+ * 
+ * @author dlwen
+ * 获得mention-->entitys
+ *
+ *从文本中抽取：extractvocabulary(path)
+ *输出到文本：outputVocabulary（outpath）  mention \t\t\t entity1 \t\t mention2....
+ *
+ *从文本中获取 loadVocabulary(path)
+ *
+ *获取mentionCount大于m，enitity pro大于n：deleteByNum(m,n)
+ *
+ *
+ */
 public class MEVocabulary {
 	
 	public static  HashMap<String,Map<String,Entity>> MEvocabulary;
