@@ -155,14 +155,17 @@ public class MEVocabulary {
 		FileOutput writer=new FileOutput(path, false);
 		for(String mention:MEvocabulary.keySet()){
 			StringBuffer sb=new StringBuffer();
-			sb.append(mention+"\t\t\t");
-			Map<String,Entity> entities=MEvocabulary.get(mention);
-			 for(String e:entities.keySet()){
-				 Entity entity=entities.get(e);
-				 sb.append(entity.toString()+"\t\t");
-			 }
-			 
-			 writer.write(sb.toString());
+			if(MEvocabulary.get(mention).size()!=0){
+				sb.append(mention+"\t\t\t");
+				Map<String,Entity> entities=MEvocabulary.get(mention);
+				 for(String e:entities.keySet()){
+					 Entity entity=entities.get(e);
+					 sb.append(entity.toString()+"\t\t");
+				 }
+				 
+				 writer.write(sb.toString());
+			}
+			
 		}
 		writer.closeWriter();
 	}
@@ -245,7 +248,7 @@ public class MEVocabulary {
 
 	private boolean UsedLink(String s){
 		boolean judge=true;
-		if(s.contains("#")&&s.trim().length()==2){
+		if(s.startsWith("#")&&s.trim().length()==2){
 			judge=false;
 		}
 		return judge;
@@ -358,7 +361,11 @@ public class MEVocabulary {
 					for(String ss:s2){
 						entities.remove(ss);
 						int newCount=mentionCount.get(m)-1;
-						mentionCount.put(m, newCount);
+					
+							mentionCount.put(m, newCount);					
+						
+						
+						
 					}
 		
 				}
@@ -428,19 +435,21 @@ public class MEVocabulary {
 			
 			long startTime = System.currentTimeMillis();
 			
-			
+//			demo.extractVocabularyFromVoca("F:/data/wikidata/entities1000000.txt");
 			MEVocabulary demo=new MEVocabulary();
 			demo.extractVocabularyFromVoca("F:/data/wikidata/entities1000000.txt");
 			System.out.println(demo.mentionCount.size());
 		    demo.deleteByNum(3, 0.30);
 			demo.outputVocabulary("C:/Users/zcwang/Desktop/result.txt");
 			System.out.println(demo.mentionCount.size());
+//			System.out.println(demo.MEvocabulary.containsKey("A2"));
+//			System.out.println(demo.MEvocabulary.get("A2").toString());
 			System.out.println("finish");
 			
 			
 		
 			//test loadVocabulary
-//			demo.loadVocabulary("C:/Users/zcwang/Desktop/result.txt");
+			demo.loadVocabulary("C:/Users/zcwang/Desktop/result.txt");
 			Set<String> set=demo.MEvocabulary.keySet();
 			for(String s:set){
 				System.out.print("mention is : "+s+"\t\t\t");

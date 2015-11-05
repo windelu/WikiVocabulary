@@ -37,7 +37,7 @@ public class Vocabuary {
 	public boolean containMention(String m){
 		return vocabulary.keySet().contains(m);
 	}
-	
+/*	
 	public boolean addMentionEntity(String mention,String entity, int count){
 		Map<String,Entity> entities=vocabulary.get(mention);
 		boolean result=false;
@@ -75,7 +75,7 @@ public class Vocabuary {
 		return result;
 		
 	}
-	
+*/	
 	public void loadVocabulary(String path){
 		vocabulary=new HashMap<String,Map<String,Entity>>();
 		mentionCount=new HashMap<String,Integer>();
@@ -155,14 +155,17 @@ public class Vocabuary {
 		FileOutput writer=new FileOutput(path, false);
 		for(String mention:vocabulary.keySet()){
 			StringBuffer sb=new StringBuffer();
-			sb.append(mention+"\t\t\t");
-			Map<String,Entity> entities=vocabulary.get(mention);
-			 for(String e:entities.keySet()){
-				 Entity entity=entities.get(e);
-				 sb.append(entity.toString()+"\t\t");
-			 }
-			 
-			 writer.write(sb.toString());
+			if (vocabulary.get(mention).size()!=0) {
+				sb.append(mention+"\t\t\t");
+				Map<String,Entity> entities=vocabulary.get(mention);
+				 for(String e:entities.keySet()){
+					 Entity entity=entities.get(e);
+					 sb.append(entity.toString()+"\t\t");
+				 }
+				 
+				 writer.write(sb.toString());
+			}
+			
 		}
 		writer.closeWriter();
 	}
@@ -176,6 +179,16 @@ public class Vocabuary {
 				 entity.updateProb(mcount);
 			 }
 		 }
+	}
+	
+	
+	
+	private boolean UsedLink(String s){
+		boolean judge=true;
+		if(s.startsWith("#")&&s.trim().length()==2){
+			judge=false;
+		}
+		return judge;
 	}
 	
 	/**
@@ -196,15 +209,17 @@ public class Vocabuary {
 
 				String mention=StringUtils.substringAfter(line, "|");
 				mention=mention.replace("]]", "").trim();
-
-				if(mention.trim().length()>1){
-				addMentionEntity(mention, entity);
+                
+			
+                	if(UsedLink(mention)&&(mention.trim().length()>1)){
+        			addMentionEntity(mention, firstToUper(entity));				
 				}
 			}else {
 				String entity=line.replace("[[", "");
 				entity=entity.replace("]]", "");
-				if(entity.trim().length()>1){
-					addMentionEntity(entity, entity);
+				if(UsedLink(entity)&&(entity.trim().length()>1)){
+					entity=firstToUper(entity);
+					addMentionEntity(entity.trim(), entity.trim());
 						
 				}
 			}
@@ -347,6 +362,22 @@ public class Vocabuary {
 		out.closeWriter();
 	}
 	
+	  private String  firstToUper(String entity){
+			
+			String reString=null;
+			if(entity.length()>0){
+				if(((entity.charAt(0)>='A')&&(entity.charAt(0))<='z')&&(!Character.isLowerCase(entity.charAt(0)))){
+					reString= entity;
+				}else {
+					
+					reString= (new StringBuilder()).append(Character.toUpperCase(entity.charAt(0))).append(entity.substring(1)).toString();
+				}
+			}
+			
+//	    System.out.println(reString);
+			return reString;
+		}
+	
 	
 /**
  * 
@@ -447,14 +478,13 @@ public class Vocabuary {
 			
 			
 			Vocabuary demo=new Vocabuary();
-			demo.extractVocabularyFromVoca("F:/data/wikidata/entity100000.txt");
+			demo.extractVocabularyFromVoca("F:/data/wikidata/entities1000000.txt");
+//			demo.extractVocabularyFromVoca("C:/Users/zcwang/Desktop/lost.txt");
 		    demo.deleteByNum(2, 0.05);
 			demo.outputVocabulary("C:/Users/zcwang/Desktop/result.txt");			
 			
 			
-			demo.loadVocabulary("C:/Users/zcwang/Desktop/result.txt");
-			
-			
+			demo.loadVocabulary("C:/Users/zcwang/Desktop/result.txt");	
 			Set<String> set=demo.vocabulary.keySet();
 			for(String s:set){
 				System.out.print("mention is : "+s+"\t");
@@ -465,6 +495,10 @@ public class Vocabuary {
 				}
 				System.out.println();
 			}
+			
+			
+			
+			
 			long endTime = System.currentTimeMillis();
 			System.out.println("time"+(endTime-startTime)+"ms");
 		}

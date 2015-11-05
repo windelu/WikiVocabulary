@@ -127,7 +127,7 @@ public class EMVocabulary {
 	
 	private boolean UsedLink(String s){
 		boolean judge=true;
-		if(s.contains("#")&&(s.trim().length()==1)){
+		if((s.startsWith("#"))||(s.startsWith(":"))){
 			judge=false;
 		}
 		return judge;
@@ -146,15 +146,18 @@ public class EMVocabulary {
 	public void outputVocabulary(String path){
 		FileOutput writer=new FileOutput(path, false);
 		for(String en:EMvocabulary.keySet()){
-			StringBuffer sb=new StringBuffer();
-			sb.append(en+"\t\t\t");
-			Map<String,Entity> ms=EMvocabulary.get(en);
-			 for(String m:ms.keySet()){
-				 Entity mentity=ms.get(m);
-				 sb.append(mentity.toString()+"\t\t");
-			 }
-			 
-			 writer.write(sb.toString());
+			if(EMvocabulary.get(en).size()!=0){
+				StringBuffer sb=new StringBuffer();
+				sb.append(en+"\t\t\t");
+				Map<String,Entity> ms=EMvocabulary.get(en);
+				 for(String m:ms.keySet()){
+					 Entity mentity=ms.get(m);
+					 sb.append(mentity.toString()+"\t\t");
+				 }
+				 
+				 writer.write(sb.toString());
+			}
+			
 		}
 		writer.closeWriter();
 	}
@@ -231,21 +234,25 @@ public class EMVocabulary {
 		
 		for(String entityname:orderlist.keySet() ){
 			ArrayList<Entity> mentions=orderlist.get(entityname);
-			int size=0;
-			if (mentions.size()<=mentionnum){
-				size=mentions.size();
+			if(mentions.size()!=0){
+				int size=0;
+				if (mentions.size()<=mentionnum){
+					size=mentions.size();
+				}
+				else {
+					size=mentionnum;
+				}
+				String mentionString="";
+				for(int i=0;i<size;i++){
+					
+					mentionString=mentionString+mentions.get(i).toString()+"\t\t";
+				}	
+				newline=entityname+"\t\t\t"+mentionString;
+				if(newline!=null){
+					writer.write(newline);
+				}
 			}
-			else {
-				size=mentionnum;
-			}
-			String mentionString="";
-			for(int i=0;i<size;i++){
-				mentionString=mentionString+mentions.get(i).toString()+"\t\t";
-			}	
-			newline=entityname+"\t\t\t"+mentionString;
-			if(newline!=null){
-				writer.write(newline);
-			}
+			
 		}
 		writer.closeWriter();
 		
@@ -297,12 +304,13 @@ public class EMVocabulary {
 			
 			//test two arguments
 			demo.extractVocabularyFromVoca("F:/data/wikidata/entities1000000.txt");
+
 	    	demo.outputVocabulary("C:/Users/zcwang/Desktop/emresult.txt");
     	  System.out.println(demo.EMvocabulary.containsKey("D"));
 	    	//test three arguments
-//	    	demo.loadVocabulary("C:/Users/zcwang/Desktop/emresult.txt");
+	    	demo.loadVocabulary("C:/Users/zcwang/Desktop/emresult.txt");
 	    	System.out.println(demo.EMvocabulary.size());
-//	        demo.outputVocMList("C:/Users/zcwang/Desktop/emlistresult.txt", 2);   	
+	        demo.outputVocMList("C:/Users/zcwang/Desktop/emlistresult.txt", 2);   	
 	    	
 
          
