@@ -4,8 +4,8 @@
 * lib: related library
 * runJar: runnable jar files,you can input related command,and get result
 * src....: related code 
-* 
-## vocabulary save path
+## vocabulary save path 
+ 
 * 172.16.216.235:/home/QueryEL/data/
 * emvocabulary2.txt:entity-mentions
 * mevocabulary.txt: mention-entities
